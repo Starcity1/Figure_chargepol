@@ -112,7 +112,7 @@ def plotFigs(figure, chargepol, params):
         init, interval = ChooseTime(chargepol["Timestamp"])
         ax = plotDensity(chargepol["Timestamp"], chargepol["Charge"],
                          init, interval, figurePath)
-        ax.set(title=params["Title"])
+        ax.set(title=(params["Title"] + " " + params["Date"]))
         plt.savefig(figurePath + "/Density_plot.pdf")
 
     elif figure == "2":
@@ -120,17 +120,17 @@ def plotFigs(figure, chargepol, params):
         init, interval = ChooseTime(chargepol["Timestamp"])
         ax = plotHistogram(chargepol["Timestamp"], chargepol["Charge"],
                            init, interval, figurePath)
-        ax.set(title=params["Title"])
+        ax.set(title=(params["Title"] + " " + params["Date"]))
         plt.savefig(figurePath + "/Histogram.pdf")
 
     elif figure == "3":
         ax = plotScatterMap(chargepol, figurePath)
-        plt.title(params["Title"])
+        ax.set(title=(params["Title"] + " " + params["Date"]))
         plt.savefig(figurePath + "/Scatter.pdf")
 
     elif figure == "4":
         ax = mapHoustonData(chargepol, figurePath)
-        plt.title(params["Title"])
+        ax.set(title=(params["Title"] + " " + params["Date"]))
         plt.savefig(figurePath + "/Houston_map.pdf")
 
     elif figure == "5":
@@ -150,6 +150,7 @@ def plotFigs(figure, chargepol, params):
 
         ax1.set_ylabel("Altitude")
 
+        plt.title(params["Title"] + " " + params["Date"])
         plt.savefig(figurePath + "/Density_histogram.pdf")
 
     elif figure == "6":
@@ -170,6 +171,7 @@ def plotFigs(figure, chargepol, params):
         ax2.set_ylabel("Altitude")
         ax2.set_xlabel("Time after 0 UTC (sec)")
 
+        plt.title(params["Title"] + " " + params["Date"])
         plt.savefig(figurePath + "/Density_scatter.pdf")
 
     elif figure == "7":
@@ -196,6 +198,7 @@ def plotFigs(figure, chargepol, params):
         gl.xformatter = LONGITUDE_FORMATTER
         gl.yformatter = LATITUDE_FORMATTER
 
+        plt.title(params["Title"] + " " + params["Date"])
         plt.savefig(figurePath + "/Density_Hmap.pdf")
     elif figure == "8":
         raise NotImplemented

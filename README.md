@@ -13,7 +13,17 @@ Usage ::
 python Create_Figures.py <path_to_chargepol_csv>
 ```
 
-At the bottom of ```Create_Figures.py``` there is a params variable. Here you can modify the title and date of the figure. Apart from that,you do not need to perform any other modificaiton to the program. Contact the author if you would like to change another variable/aspect of the figures (e.g. the x and y labels).
+At the bottom of ```Create_Figures.py``` there is a params variable. Here you can modify the title and date of the figure. Apart from that,you do not need to perform any other modificaiton to the program. An example of such parameters may be.
+
+
+```
+params = {
+        "Title": "Lightning Data",
+        "Date": "November 11, 2022"
+}
+```
+
+Contact the author if you would like to change another variable/aspect of the figures (e.g. the x and y labels).
 
 The code is able to generate **4** unique figures:
 
