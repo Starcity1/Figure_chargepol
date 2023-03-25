@@ -16,9 +16,12 @@ import importlib.util
 import sys
 import subprocess as sb
 
-MODULE_REQ = ["matplotlib", "cartopy", "numpy", "os", "math", "csv", "scipy"]
-if sys.version < "3.8.15":
+MODULE_REQ = ["matplotlib", "numpy", "os", "math", "csv", "scipy"]
+if sys.version_info.major != 3 and sys.version_info.minor < 8:
     exit("Please make sure to install Python 3.8+")
+
+if importlib.util.find_spec("cartopy") is None:
+    sb.check_call(['conda', 'install', '-c', 'conda-forge', 'cartopy'])
 
 for module in MODULE_REQ:
     if importlib.util.find_spec(module) is None:
@@ -213,7 +216,7 @@ def plotFigs(figure, chargepol, params):
 # Function will return a list of all the plots the user wants to create.
 
 if __name__ == "__main__":
-    sb.run("clear")
+    os.system("clc")
 
     if len(sys.argv) < 2:
         exit(f"Usage: python CreateFigures.py <path_to_chargepol_csv_file>")
