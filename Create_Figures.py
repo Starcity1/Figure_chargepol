@@ -15,6 +15,8 @@
 import importlib.util
 import sys
 import subprocess as sb
+import os
+
 
 MODULE_REQ = ["matplotlib", "numpy", "os", "math", "csv", "scipy"]
 if sys.version_info.major != 3 and sys.version_info.minor < 8:
@@ -44,8 +46,6 @@ import matplotlib.pyplot as plt
 from cartopy.mpl.gridliner import LATITUDE_FORMATTER, LONGITUDE_FORMATTER
 
 import cartopy.crs as ccrs
-
-import os
 
 figurePath = "figures/"
 availableFigures = ["1", "2", "3", "4", "5", "6", "7", "8"]
