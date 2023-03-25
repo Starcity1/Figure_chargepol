@@ -14,7 +14,9 @@ python Create_Figures.py <path_to_chargepol_csv>
 ```
 
 Before running, please make sure to have Anaconda **installed**. The script has to run in an **Anaconda environment**. Here is a link on how to install Anaconda and how to setup an environment.
+
 Installing Anaconda: https://www.anaconda.com/products/distribution
+
 Setting up an Anaconda environment: https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 
 At the bottom of ```Create_Figures.py``` there is a params variable. Here you can modify the title and date of the figure. Apart from that,you do not need to perform any other modificaiton to the program. An example of such parameters may be.
