@@ -50,12 +50,9 @@ def plotDensity(timeList = 0, eventList = 0, initTime = 0, interval = 0,
     # Hiding y-axis values
     ax1.set_yticks([])
 
-    if returnFigure:
-        return ax
-
     ax.set(ylim=[0,15])
     ax.set(xlabel="Time after 0 UTC (sec)", ylabel="Altitude (km)")
     plt.suptitle("Flashes")
     plt.grid()
 
-    plt.savefig(store_path + "/Density_plot.pdf")
+    return ax

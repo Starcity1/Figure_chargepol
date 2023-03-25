@@ -2,30 +2,51 @@
 # Program allows user to combine various plots together.
 # Author : David Rodriguez Sanchez
 # Date   : Feb 06 2023
+# Version: 0.0.1
 # Desc   : Using a converted .csv file from a .hdf5 chargepol file, the script will create a variety of figures.
 #
 # Dependencies : seaborn, numpy, matplotlib, Python 3.6+
-# Usage :: python3 main.py <path_to_chargepol_csv_file>
+# Usage :: python3 Create_Figures.py <path_to_chargepol_csv_file>
 ##
 
+# First section of script checks if all modules necessary are installed.
+# DO NOT CHANGE.
+# Built-in modules.
+import importlib.util
+import sys
+import subprocess as sb
+
+MODULE_REQ = ["matplotlib", "cartopy", "numpy", "os", "math", "csv", "scipy"]
+if sys.version < "3.8.15":
+    exit("Please make sure to install Python 3.8+")
+
+for module in MODULE_REQ:
+    if importlib.util.find_spec(module) is None:
+        sb.check_call([sys.executable, '-m', 'pip', 'install', module])
+
 # Other script dependencies.
-from create_density_plot import plotDensity
-from create_historgram import plotHistogram
-from create_scatter_plot import plotScatterMap
-from create_houston_map import mapHoustonData
-import prepare_data as ch
+# from create_historgram import plotHistogram
+# from create_scatter_plot import plotScatterMap
+# from create_houston_map import mapHoustonData
+# import prepare_data as ch
+
+from src.create_density_plot import plotDensity
+from src.create_historgram import plotHistogram
+from src.create_scatter_plot import plotScatterMap
+from src.create_houston_map import mapHoustonData
+
+import src.prepare_data as ch
 
 import matplotlib.pyplot as plt
 from cartopy.mpl.gridliner import LATITUDE_FORMATTER, LONGITUDE_FORMATTER
 
 import cartopy.crs as ccrs
 
-from sys import argv
-import subprocess as sb
 import os
 
 figurePath = "figures/"
 availableFigures = ["1", "2", "3", "4", "5", "6", "7", "8"]
+
 
 # This function stores and outputs all terminal messages
 def getMessage(messageCode):
@@ -36,23 +57,25 @@ def getMessage(messageCode):
               "[1] Density graph\n" \
               "[2] Histogram\n" \
               "[3] Scatter Plot\n" \
-              "[4] Scatter Plot with map (NOT STABLE)\n" \
+              "[4] Event Layer on Houston\n" \
               "--- Combinations ---\n" \
               "[5] Density graph and histogram\n" \
               "[6] Density Graph and scatter plot\n" \
-              "[7] Density Graph and scatter plot with map (NOT STABLE)\n" \
-              "[8] All plots (NOT STABLE)\n"
+              "[7] Density Graph and scatter plot with map (NOT IMPLEMENTED)\n" \
+              "[8] All plots (NOT STABLE)\n" \
+              "[q] Quit program.\n"
     elif messageCode == 2:
         msg = "Choose time interval :: \n" \
-        "[1] 1-minute interval\n" \
-        "[2] 5-minute interval\n" \
-        "[3] 10-minute interval\n" \
-        "[4] 1-hour interval\n" \
-        "[5] 5-hour interval\n" \
-        "[6] 10-hour interval\n" \
-        "[7] Custom.\n\n"
+              "[1] 1-minute interval\n" \
+              "[2] 5-minute interval\n" \
+              "[3] 10-minute interval\n" \
+              "[4] 1-hour interval\n" \
+              "[5] 5-hour interval\n" \
+              "[6] 10-hour interval\n" \
+              "[7] Custom.\n\n"
 
     return msg
+
 
 def ChooseTime(chargepol_time) -> (int, int):
     minTime = chargepol_time[0]
@@ -82,30 +105,41 @@ def ChooseTime(chargepol_time) -> (int, int):
 
     return (initTime, interval)
 
-def plotFigs(figure, chargepol):
+
+def plotFigs(figure, chargepol, params):
     if figure == "1":
         print("Scatter Plot :: ")
         init, interval = ChooseTime(chargepol["Timestamp"])
-        plotDensity(chargepol["Timestamp"], chargepol["Charge"], init, interval, figurePath)
+        ax = plotDensity(chargepol["Timestamp"], chargepol["Charge"],
+                         init, interval, figurePath)
+        ax.set(title=params["Title"])
+        plt.savefig(figurePath + "/Density_plot.pdf")
 
     elif figure == "2":
         print("Histogram :: ")
         init, interval = ChooseTime(chargepol["Timestamp"])
-        plotHistogram(chargepol["Timestamp"], chargepol["Charge"], init, interval, figurePath)
+        ax = plotHistogram(chargepol["Timestamp"], chargepol["Charge"],
+                           init, interval, figurePath)
+        ax.set(title=params["Title"])
+        plt.savefig(figurePath + "/Histogram.pdf")
 
     elif figure == "3":
-        plotScatterMap(chargepol, figurePath)
+        ax = plotScatterMap(chargepol, figurePath)
+        plt.title(params["Title"])
+        plt.savefig(figurePath + "/Scatter.pdf")
 
     elif figure == "4":
-        mapHoustonData(chargepol, figurePath)
+        ax = mapHoustonData(chargepol, figurePath)
+        plt.title(params["Title"])
+        plt.savefig(figurePath + "/Houston_map.pdf")
 
     elif figure == "5":
         print("Density plot and histogram:: ")
         init, interval = ChooseTime(chargepol["Timestamp"])
         fig, (ax1, ax2) = plt.subplots(1, 2, sharey='row',
-                                       figsize=(15,4))
+                                       figsize=(15, 4))
         plotDensity(chargepol["Timestamp"], chargepol["Charge"], init,
-                      interval, figurePath, returnFigure=True, ax=ax1)
+                    interval, figurePath, returnFigure=True, ax=ax1)
         plotHistogram(chargepol["Timestamp"], chargepol["Charge"], init,
                       interval, figurePath, returnFigure=True, ax=ax2)
 
@@ -125,7 +159,7 @@ def plotFigs(figure, chargepol):
 
         ax1.grid()
         plotDensity(chargepol["Timestamp"], chargepol["Charge"], init,
-                       interval, figurePath, returnFigure=True, ax=ax1)
+                    interval, figurePath, returnFigure=True, ax=ax1)
 
         ax2.grid()
         plotScatterMap(chargepol, figurePath, returnFigure=True, ax=ax2, timeInfo=[init, interval])
@@ -141,7 +175,7 @@ def plotFigs(figure, chargepol):
     elif figure == "7":
         print("Density plot and Houston map")
         init, interval = ChooseTime(chargepol["Timestamp"])
-        fig = plt.figure(figsize=(10,7))
+        fig = plt.figure(figsize=(10, 7))
 
         spec = plt.GridSpec(3, 3, wspace=0.5, hspace=0.5)
 
@@ -151,7 +185,7 @@ def plotFigs(figure, chargepol):
         ax1.set_title("Flashes")
         plt.grid()
         plotDensity(chargepol["Timestamp"], chargepol["Charge"], init,
-                       interval, figurePath, returnFigure=True, ax=ax1)
+                    interval, figurePath, returnFigure=True, ax=ax1)
 
         ax2 = fig.add_subplot(spec[1:, 0:], projection=ccrs.PlateCarree())
         mapHoustonData(chargepol, returnFigure=True, ax=ax2)
@@ -164,21 +198,24 @@ def plotFigs(figure, chargepol):
 
         plt.savefig(figurePath + "/Density_Hmap.pdf")
     elif figure == "8":
-        pass
+        raise NotImplemented
+    elif figure == "q" or figure == "Q":
+        exit(0)
     else:
         print("Invalid figure ID.")
 
     print("Done.")
+
 
 # Function will return a list of all the plots the user wants to create.
 
 if __name__ == "__main__":
     sb.run("clear")
 
-    if len(argv) < 2:
+    if len(sys.argv) < 2:
         exit(f"Usage: python CreateFigures.py <path_to_chargepol_csv_file>")
 
-    chargepol = ch.get_data(argv[1])
+    chargepol = ch.get_data(sys.argv[1])
     figures = set(input(getMessage(1)).split())
 
     # Small buffer that only allows valid figures.
@@ -188,9 +225,11 @@ if __name__ == "__main__":
     if not os.path.exists(figurePath) and not os.path.isdir(figurePath):
         os.mkdir(figurePath)
 
+    # This bracket allows you to change the name and xAxis.
+    params = {
+        "Title": "Lightning Data",
+        "Date": "221105"
+    }
+
     for figure in validFigures:
-        plotFigs(figure, chargepol)
-
-
-
-
+        plotFigs(figure, chargepol, params)

@@ -44,8 +44,6 @@ def mapHoustonData(HLMAdata = None, figurePath = None, returnFigure = False, ax 
                 marker='+', transform=ccrs.PlateCarree())
     ax.scatter(x=neg[1], y=neg[0], s=4, linewidth=.5, color=[0.062, 0.019, 1, .5],
                 marker='_', transform=ccrs.PlateCarree())
-    if returnFigure:
-        return ax
 
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True)
     gl.xlabels_top = False
@@ -53,5 +51,4 @@ def mapHoustonData(HLMAdata = None, figurePath = None, returnFigure = False, ax 
     gl.xformatter = LONGITUDE_FORMATTER
     gl.yformatter = LATITUDE_FORMATTER
 
-    plt.show()
-    plt.savefig(figurePath + "/Houston_map.pdf")
+    return ax

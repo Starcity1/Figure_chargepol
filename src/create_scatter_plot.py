@@ -54,11 +54,8 @@ def plotScatterMap(HLMAdata = None, figurePath = None, returnFigure = False, ax 
     ax.scatter(x=neg[0], y=neg[1], s=8, linewidth=.625, color=[0.062, 0.019, 1], marker="_")
     ax.scatter(x=pos[0], y=pos[1], s=8, linewidth=.625, color=[1, 0.062, 0.019], marker="+")
 
-    if returnFigure:
-        return ax
 
     plt.xlabel("Time after 0 UTC (sec)")
     plt.ylabel("Altitude (km)")
 
-
-    plt.savefig(figurePath + "/Scatter.pdf")
+    return ax

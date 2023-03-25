@@ -11,9 +11,6 @@
 import csv
 
 import matplotlib.pyplot as plt
-from matplotlib import pyplot as py
-from sys import argv
-from os import path
 from math import sqrt
 
 def plotHistogram(timeList, eventList, initTime, interval = 0,
@@ -37,11 +34,6 @@ def plotHistogram(timeList, eventList, initTime, interval = 0,
             ,orientation="horizontal")
     ax.hist(negEventIntAlt, bins=int(sqrt(len(negEventIntAlt))), density=True, color=[0.062, 0.019, 1, 0.7]
             ,orientation="horizontal")
-
-    if returnFigure:
-        return ax
-
     ax.set(ylabel="Altitude (km)", xlabel="Density")
-    plt.grid()
 
-    plt.savefig(figurePath + "/Histogram.pdf")
+    return ax
