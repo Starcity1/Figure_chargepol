@@ -1,6 +1,6 @@
 #Python HLMA Figure Generator.
 
-**Requirements**: Python 3.8+, chargepol.
+**Requirements**: Python 3.8+, chargepol, anaconda.
 
 **Author**: David Rodriguez Sanchez (david.rodriguez24@tamu.edu).
 
@@ -12,6 +12,9 @@ Usage ::
 ```
 python Create_Figures.py <path_to_chargepol_csv>
 ```
+
+Before running, please make sure to have Anaconda installed. Here is a link on how to install it.
+https://www.anaconda.com/products/distribution
 
 At the bottom of ```Create_Figures.py``` there is a params variable. Here you can modify the title and date of the figure. Apart from that,you do not need to perform any other modificaiton to the program. An example of such parameters may be.
 
