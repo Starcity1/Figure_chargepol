@@ -196,15 +196,55 @@ def plotFigs(figure, chargepol, params):
         mapHoustonData(chargepol, returnFigure=True, ax=ax2)
 
         gl = ax2.gridlines(crs=ccrs.PlateCarree(), draw_labels=True)
-        gl.xlabels_top = False
-        gl.ylabels_right = False
+        gl.top_labels = False
+        gl.right_labels = False
         gl.xformatter = LONGITUDE_FORMATTER
         gl.yformatter = LATITUDE_FORMATTER
 
         plt.title(params["Title"] + " " + params["Date"])
         plt.savefig(figurePath + "/Density_Hmap.pdf")
     elif figure == "8":
-        raise NotImplemented
+        print("XLMA-Formatted figure")
+        init, interval = ChooseTime(chargepol["Timestamp"])
+        fig = plt.figure(figsize=(8.3, 11.7)) # Common dimensions for poster.
+
+        spec = plt.GridSpec(8, 6, hspace=.35)
+
+        # Density plot
+        ax1 = fig.add_subplot(spec[0:1, 0:])
+        ax1.set(ylim=[0, 15])
+        ax1.set(ylabel="Altitude (km)")
+        ax1.tick_params(axis='both', which='major', labelsize=10)
+        plotDensity(chargepol["Timestamp"], chargepol["Charge"], init,
+                    interval, figurePath, returnFigure=True, ax=ax1)
+
+        # First Scatter Plot
+        ax2 = fig.add_subplot(spec[1:2, :5])
+        ax2.tick_params(axis='both', which='major', labelsize=10)
+        plotScatterMap(chargepol, figurePath, returnFigure=True, ax=ax2, timeInfo=[init, interval])
+
+        # Houston Map
+
+        ax3 = fig.add_subplot(spec[2:6, :5], projection=ccrs.PlateCarree())
+        mapHoustonData(chargepol, returnFigure=True, ax=ax3)
+
+        gl = ax3.gridlines(crs=ccrs.PlateCarree(), draw_labels=True)
+        gl.top_labels = False
+        gl.right_labels = False
+        gl.xformatter = LONGITUDE_FORMATTER
+        gl.yformatter = LATITUDE_FORMATTER
+
+        ax3.set(xlabel="Longitude", ylabel="Latitude")
+
+        # Histogram
+        ax4 = fig.add_subplot(spec[1:2, 5:])
+        plotHistogram(chargepol["Timestamp"], chargepol["Charge"],
+                           init, interval, ax=ax4)
+
+        plt.grid()
+        fig.suptitle(params["Date"] + params["Title"] + " ")
+        plt.savefig(figurePath + "/XLMA-format.pdf")
+
     elif figure == "q" or figure == "Q":
         exit(0)
     else:
@@ -233,7 +273,7 @@ if __name__ == "__main__":
 
     # This bracket allows you to change the name and xAxis.
     params = {
-        "Title": "Lightning Data",
+        "Title": "Source Density, threshold=3",
         "Date": "221105"
     }
 
