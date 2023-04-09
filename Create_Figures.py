@@ -213,7 +213,7 @@ def plotFigs(figure, chargepol, params):
     print("Done.")
 
 
-# Function will return a list of all the plots the user wants to create.
+# Function will return a list of all the plots the user wants to create.:W
 
 if __name__ == "__main__":
     os.system("clc")
