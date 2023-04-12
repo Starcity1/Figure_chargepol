@@ -42,7 +42,7 @@ def withinInterval(timeInfo, timePoint) -> bool:
     return (timePoint > timeInfo[0] and timePoint < (timeInfo[0] + timeInfo[1]))
 
 
-def plotScatterMap(HLMAdata = None, figurePath = None, returnFigure = False, ax = None, timeInfo = None):
+def plotScatterMap(HLMAdata = None, figurePath = None, returnFigure = False, ax = None, timeInfo = None, makeVertical=False):
     if ax == None:
         ax = plt.gca()
 
@@ -51,11 +51,15 @@ def plotScatterMap(HLMAdata = None, figurePath = None, returnFigure = False, ax 
     else:
         neg, pos = createAltitudelist(HLMAdata)
 
-    ax.scatter(x=neg[0], y=neg[1], s=8, linewidth=.625, color=[0.062, 0.019, 1], marker="_")
-    ax.scatter(x=pos[0], y=pos[1], s=8, linewidth=.625, color=[1, 0.062, 0.019], marker="+")
+    if makeVertical:
+        ax.scatter(x=neg[1], y=neg[0], s=8, linewidth=.625, color=[0.062, 0.019, 1], marker="_")
+        ax.scatter(x=pos[1], y=pos[0], s=8, linewidth=.625, color=[1, 0.062, 0.019], marker="+")
+    else:
+        ax.scatter(x=neg[0], y=neg[1], s=8, linewidth=.625, color=[0.062, 0.019, 1], marker="_")
+        ax.scatter(x=pos[0], y=pos[1], s=8, linewidth=.625, color=[1, 0.062, 0.019], marker="+")
 
 
-    plt.xlabel("Time after 0 UTC (sec)")
+    plt.xlabel("Time UTC (sec)")
     plt.ylabel("Altitude (km)")
 
     return ax

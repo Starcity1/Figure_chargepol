@@ -237,12 +237,23 @@ def plotFigs(figure, chargepol, params):
         ax3.set(xlabel="Longitude", ylabel="Latitude")
 
         # Histogram
-        ax4 = fig.add_subplot(spec[1:2, 5:])
+        ax4 = fig.add_subplot(spec[1:2, 5])
+        ax4.set_yticks([0, 5.0, 10.0, 15.0])
+        ax4.yaxis.tick_right()
+        ax4.yaxis.set_label_position("right")
         plotHistogram(chargepol["Timestamp"], chargepol["Charge"],
                            init, interval, ax=ax4)
 
-        plt.grid()
-        fig.suptitle(params["Date"] + params["Title"] + " ")
+        # Second (vertical) scatter plot.
+        ax5 = fig.add_subplot(spec[2:6 , 5])
+        ax5.yaxis.tick_right()
+        ax5.yaxis.set_label_position("right")
+        ax5.tick_params(axis='both', which='major', labelsize=10)
+        plotScatterMap(chargepol, figurePath, returnFigure=True, ax=ax5, timeInfo=[init, interval], makeVertical=True)
+        plt.ylabel("Time UTC (sec)")
+        plt.xlabel("Altitude (km)")
+
+        fig.suptitle(params["Date"] + " " + params["Title"] + " ")
         plt.savefig(figurePath + "/XLMA-format.pdf")
 
     elif figure == "q" or figure == "Q":
