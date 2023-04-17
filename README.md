@@ -6,7 +6,9 @@
 
 **Version**: 0.0.1
 
-**Description**: Using the modified chargepol version, the program can generate a multiple number of figures. *Note*: This version does still contain major bugs and errors. If you find any errors please contact David Rodriguez Sanchez.
+**Description**: Using the modified chargepol version, the program can generate a multiple number of figures. *Note*: This version does still contain major bugs and errors. If you find any errors please contact David Rodriguez Sanchez. The latest version can be directly downloaded from my GirHub.
+
+Link to GitHub repository: https://github.com/Starcity1/Figure_chargepol
 
 Usage ::
 ```
