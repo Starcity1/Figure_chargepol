@@ -64,8 +64,8 @@ def getMessage(messageCode):
               "--- Combinations ---\n" \
               "[5] Density graph and histogram\n" \
               "[6] Density Graph and scatter plot\n" \
-              "[7] Density Graph and scatter plot with map (NOT IMPLEMENTED)\n" \
-              "[8] All plots (NOT STABLE)\n" \
+              "[7] Density Graph and scatter plot with map\n" \
+              "[8] All plots \n" \
               "[q] Quit program.\n"
     elif messageCode == 2:
         msg = "Choose time interval :: \n" \
@@ -111,7 +111,7 @@ def ChooseTime(chargepol_time) -> (int, int):
 
 def plotFigs(figure, chargepol, params):
     if figure == "1":
-        print("Scatter Plot :: ")
+        print("Density Graph :: ")
         init, interval = ChooseTime(chargepol["Timestamp"])
         ax = plotDensity(chargepol["Timestamp"], chargepol["Charge"],
                          init, interval, figurePath)
@@ -127,11 +127,13 @@ def plotFigs(figure, chargepol, params):
         plt.savefig(figurePath + "/Histogram.pdf")
 
     elif figure == "3":
+        print("Scatter Plot")
         ax = plotScatterMap(chargepol, figurePath)
         ax.set(title=(params["Title"] + " " + params["Date"]))
         plt.savefig(figurePath + "/Scatter.pdf")
 
     elif figure == "4":
+        print("Houston Map")
         ax = mapHoustonData(chargepol, figurePath)
         ax.set(title=(params["Title"] + " " + params["Date"]))
         plt.savefig(figurePath + "/Houston_map.pdf")
@@ -261,13 +263,14 @@ def plotFigs(figure, chargepol, params):
     else:
         print("Invalid figure ID.")
 
+    plt.close()
     print("Done.")
 
 
 # Function will return a list of all the plots the user wants to create.:W
 
 if __name__ == "__main__":
-    os.system("clc")
+    os.system("cls")
 
     if len(sys.argv) < 2:
         exit(f"Usage: python CreateFigures.py <path_to_chargepol_csv_file>")
