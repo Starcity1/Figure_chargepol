@@ -1,4 +1,4 @@
-#Python HLMA Figure Generator.
+# Python HLMA Figure Generator.
 
 **Requirements**: Python 3.8+, chargepol, anaconda.
 
