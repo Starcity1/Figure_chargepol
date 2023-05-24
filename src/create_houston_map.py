@@ -28,7 +28,7 @@ def mapHoustonData(HLMAdata = None, figurePath = None, returnFigure = False, ax 
 
     if ax == None:
         fig = plt.figure(figsize=(8, 6))
-        ax = fig.add_subplot(projection=ccrs.Mercator())
+        ax = fig.add_subplot(projection=ccrs.PlateCarree())
 
     county_lines = cfeature.ShapelyFeature(shapereader.Reader(US_COUNTIES).geometries(), ccrs.PlateCarree(),
                                            facecolor='none', edgecolor='black', lw=1)
