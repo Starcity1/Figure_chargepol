@@ -8,7 +8,7 @@ todayDate = today.strftime("%m/%d/%y") # mm/dd/y
 Re = 6356
 
 # Change to network center from data.
-netw_center = np.array([-31.7, -64.1])
+netw_center = np.array([29.760, -95.37])
 
 
 
