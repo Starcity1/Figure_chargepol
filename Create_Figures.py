@@ -43,6 +43,8 @@ from src.create_houston_map import mapHoustonData
 import src.prepare_data as ch
 
 import matplotlib.pyplot as plt
+
+
 from cartopy.mpl.gridliner import LATITUDE_FORMATTER, LONGITUDE_FORMATTER
 
 import cartopy.crs as ccrs
@@ -56,7 +58,7 @@ def getMessage(messageCode):
     msg = ""
     if messageCode == 1:
         msg = "Enter the figures you want to plot.\n" \
-              "Usage example :: write '1 2 3' if you want a density graph, histogram, and scatter plot\n" \
+              "Usage example :: Enter '1 2 3' if you want a density graph, histogram, and scatter plot\n" \
               "[1] Density graph\n" \
               "[2] Histogram\n" \
               "[3] Scatter Plot\n" \
@@ -75,7 +77,11 @@ def getMessage(messageCode):
               "[4] 1-hour interval\n" \
               "[5] 5-hour interval\n" \
               "[6] 10-hour interval\n" \
-              "[7] Custom.\n\n"
+              "[7] 24-hour interval\n" \
+              "[8] Custom.\n\n"
+    elif messageCode == 3:
+        msg = "Enter days to plot. For ex, for May 28 through June 2 enter: 05/28/2023 - 06/02/2023\n" \
+              "[All] To plot all in the directory \n"
 
     return msg
 
@@ -102,6 +108,8 @@ def ChooseTime(chargepol_time) -> (int, int):
     elif timeInterval == 6:
         interval = 36000
     elif timeInterval == 7:
+        interval = 86400
+    elif timeInterval == 8:
         cInterval = int(float(input("Enter custom interval (sec) :: ")))
         interval = cInterval
     else:
@@ -114,8 +122,8 @@ def plotFigs(figure, chargepol, params):
     if figure == "1":
         print("Density Graph :: ")
         init, interval = ChooseTime(chargepol["Timestamp"])
-        ax = plotDensity(chargepol["Timestamp"], chargepol["Charge"],
-                         init, interval, figurePath)
+        ax, timePoints = plotDensity(chargepol["Timestamp"], chargepol["Charge"],
+                         init, interval, chargepol["Date"], figurePath)
         ax.set(title=(params["Title"] + " " + params["Date"]))
         plt.savefig(figurePath + "/Density_plot.pdf")
 
@@ -277,8 +285,19 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         exit(f"Usage: python CreateFigures.py <path_to_chargepol_csv_file>")
 
-    chargepol = ch.get_data(sys.argv[1])
+    if os.path.isdir(sys.argv[1]): #If user enters directory
+        response = input(getMessage(3)) #Either "All" or user enters two dates to plot chargepol data
+        if response == "All":
+            chargepol = ch.get_multipleData(sys.argv[1])
+        else:
+            chargepol = ch.get_multipleData(sys.argv[1], response)
+        #year, month, day = ch.get_initialDate(sys.argv[1], response)
+        #print(year,month,day)
+    else: #If it's csv
+        chargepol = ch.get_data(sys.argv[1])
+
     figures = set(input(getMessage(1)).split())
+
 
     # Small buffer that only allows valid figures.
     validFigures = sorted([figure for figure in figures if figure in availableFigures])
