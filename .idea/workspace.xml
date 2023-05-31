@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45ff8110-940b-4c31-aa26-4630c8f2c2d0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/Density_plot.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/Density_plot.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/Scatter.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/Scatter.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/XLMA-format.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/XLMA-format.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/create_density_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/create_density_plot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +64,11 @@
           <url>file://$PROJECT_DIR$/src/create_density_plot.py</url>
           <line>10</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Create_Figures.py</url>
+          <line>149</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
