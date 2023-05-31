@@ -86,6 +86,7 @@ def getMessage(messageCode):
     return msg
 
 
+
 def ChooseTime(chargepol_time) -> (int, int):
     minTime = chargepol_time[0]
     maxTime = chargepol_time[-1]
@@ -278,6 +279,7 @@ def plotFigs(figure, chargepol, params):
 # Function will return a list of all the plots the user wants to create.:W
 
 if __name__ == "__main__":
+    # Clears terminal screen
     os.system("cls")
 
     if len(sys.argv) < 2:
