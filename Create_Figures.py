@@ -227,7 +227,7 @@ def plotFigs(figure, chargepol, params):
         ax1.set(ylabel="Altitude (km)")
         ax1.tick_params(axis='both', which='major', labelsize=10)
         plotDensity(chargepol["Timestamp"], chargepol["Charge"], init,
-                    interval, figurePath, returnFigure=True, ax=ax1)
+                    interval, chargepol["Date"], figurePath, returnFigure=True, ax=ax1)
 
         # First Scatter Plot
         ax2 = fig.add_subplot(spec[1:2, :5])

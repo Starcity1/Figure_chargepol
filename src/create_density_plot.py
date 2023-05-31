@@ -23,6 +23,8 @@ def plotDensity(timeList = 0, eventList = 0, initTime = 0, interval = 0, dateLis
     # for time in timeList:
     #     xAxisList.append(time)
 
+    #FIXME: Extend plot from one interval to another.
+
     timePoints = list()
     if interval < 1000: linewidth = 1
     elif interval < 10000: linewidth = .6
@@ -59,17 +61,6 @@ def plotDensity(timeList = 0, eventList = 0, initTime = 0, interval = 0, dateLis
     # Hiding y-axis values
     ax1.set_yticks([])
 
-    # Creating second x-axis for dates
-    # # ax2 = ax1.twiny()
-    # # new_xticks = list()
-    # #
-    # # #print(timePoints)
-    # # for i in range(int(timePoints[0]), int(timePoints[-1])):
-    # #     if i % 86400 == 0:
-    # #         xticklocation = (float((i-(int(timePoints[0])))/interval))
-    # #         new_xticks.append(xticklocation)
-    # # ax2.set_xticks(new_xticks)
-    # # #print(new_xticks)
     if int(timePoints[-1]) - int(timePoints[0]) >= 172800:  # if our interval is greater or equal to 2 days
         ticks = []
         for i in range(int(timePoints[0]), int(timePoints[-1])):

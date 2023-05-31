@@ -7,10 +7,10 @@
     <list default="true" id="45ff8110-940b-4c31-aa26-4630c8f2c2d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Create_Figures.py" beforeDir="false" afterPath="$PROJECT_DIR$/Create_Figures.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/figures/Density_plot.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/Density_plot.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/Histogram.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/Histogram.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/create_houston_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/create_houston_map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figures/Scatter.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/Scatter.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figures/XLMA-format.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/XLMA-format.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/create_density_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/create_density_plot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +40,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\David\OneDrive\Desktop\School_related\ATMO_291\HLMA" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\David\OneDrive\Desktop\School_related\ATMO_291\HLMA" />
     </key>
   </component>
